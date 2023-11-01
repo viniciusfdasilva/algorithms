@@ -36,6 +36,7 @@ public class Lcs{
          */
         column_size = column.length + 1;
         row_size    = row.length    + 1;
+
         matriz = new int[row_size][column_size];
 
         init_first_line_and_column();
@@ -54,6 +55,7 @@ public class Lcs{
                 int left_element     = matriz[i][j-1];
                 int diagonal_element = matriz[i-1][j-1];
 
+                // Pega o valor máximo entre o elemento acima, do lado esquerdo e da diagonal
                 int max_value = Math.max(Math.max(up_element, left_element), diagonal_element);
 
 
@@ -72,8 +74,8 @@ public class Lcs{
     {
         for(int i = 0; i < column_size; i++)
         {
-             matriz[0][i] = 0;
-             matriz[i][0] = 0;
+            matriz[0][i] = 0;
+            matriz[i][0] = 0;
         }
     }
 
@@ -81,12 +83,28 @@ public class Lcs{
     {
         System.out.println("");
 
+        System.out.print("     ");
+
+        for(int i = 0; i < column_size-1; i++) System.out.print(column[i] + "  ");
+        
+        System.out.println();
+
         for(int i = 0; i < column_size; i++)
         {
+            if(i != 0)
+            {
+                System.out.print(row[i-1] + " ");
+            }else{ 
+                System.out.print("  ");
+            }
+            
             for(int j = 0; j < row_size; j++)
             {
-                System.out.print(matriz[i][j] + " ");
+                
+                if(matriz[i][j] < 10) System.out.print(matriz[i][j] + "  ");
+                else System.out.print(matriz[i][j] + " ");
             }
+
             System.out.println("");
         }
         
