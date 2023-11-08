@@ -46,9 +46,8 @@ public class Lcs
         matriz = new int[row_size][column_size];
 
         init_first_line_and_column();
-        lcs();
         
-        System.out.println(diff() ? "Os arquivos são iguais" : "Existe diferença entre os arquivos"); 
+        System.out.println(lcs() ? "Os arquivos são iguais" : "Existe diferença entre os arquivos"); 
     }
 
     /**
@@ -58,7 +57,7 @@ public class Lcs
      * @param void
      * @return void
      */
-    static void lcs()
+    static boolean lcs()
     {
         for(int i = 1; i < column_size; i++)
         {
@@ -80,6 +79,8 @@ public class Lcs
                     matriz[i][j] = max_value;
                 }
             }
+
+            if(diagonal_element >= matriz[i][i]) return false;
         }
     }
 
@@ -92,35 +93,6 @@ public class Lcs
      */
     static void init_first_line_and_column()
     {
-        for(int i = 0; i < column_size; i++)
-        {
-            matriz[0][i] = 0;
-            matriz[i][0] = 0;
-        }
+        for(int i = 0; i < column_size; i++) matriz[0][i] = 0;
+        for(int i = 0; i < row_size; i++)    matriz[i][0] = 0;
     }
-
-
-    /**
-     * Verifica a diagonal principal da matriz,
-     * caso a matriz seja não crescente existe
-     * pelo menos uma diferença no arquivo. Caso
-     * contrário os arquivos são iguais.
-     * 
-     * @param void
-     * @return true se os arquivos são iguais false
-     * caso contrário.
-     */
-    static boolean diff()
-    {
-        int val = matriz[0][0];
-
-        for(int i = 1; i < row_size; i++)
-        {
-            if(val >= matriz[i][i]) return false;
-            val = matriz[i][i];
-        }
-
-        return true;
-    }
-}
-
